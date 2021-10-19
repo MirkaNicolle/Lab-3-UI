@@ -1,6 +1,6 @@
 '''
-source: https://github.com/attreyabhatt/Space-Invaders-Pygame
-        https://github.com/churly92/RayCaster/blob/main/RayCaster.py
+sources: https://github.com/attreyabhatt/Space-Invaders-Pygame
+         https://github.com/churly92/RayCaster/blob/main/RayCaster.py
 
 Mirka Monzon 18139
 Lab 3: UI
