@@ -178,78 +178,73 @@ font = pygame.font.Font('freesansbold.ttf', 30)
 
 
 def menu():
+
+    while True:
+
+        click = False
+
+        #fondo
+        fondo = pygame.image.load('espacio.jpg')
+
+        #encabezado
+        pygame.display.set_caption("Shooter Infinite")
+        icon = pygame.image.load('ship.png')
+        pygame.display.set_icon(icon)
+
+        #titulo
+        textX = 170
+        textY = 35
+
+        def show_title(x,y):
+            title = font.render("Shooter Infinite", True, (255,255,255))
+            screen.blit(title, (x,y))
+
+        screen.blit(fondo, (0,0))
+        show_title(textX,textY)
+
+        def draw_text(text, font, color, surface, x, y):
+            textobj = font.render(text, (255,255,255), color)
+            textrect = textobj.get_rect()
+            textrect.topleft = (x, y)
+            surface.blit(textobj, textrect)
+
+        #Seleccionar los botones de inicio y salida utilizando la posición y click del mouse
+        mx, my = pygame.mouse.get_pos()
     
-    click = False
+        button_1 = pygame.Rect(50, 300, 200, 50)
+        draw_text('Inicio', font, (255, 255, 255), screen, 250, 200)
 
-    #fondo
-    fondo = pygame.image.load('espacio.jpg')
+        button_2 = pygame.Rect(50, 400, 200, 50)
+        draw_text('Salir', font, (255, 255, 255), screen, 250, 250)
 
-    #encabezado
-    pygame.display.set_caption("Shooter Infinite")
-    icon = pygame.image.load('ship.png')
-    pygame.display.set_icon(icon)
-
-    #titulo
-    textX = 170
-    textY = 35
-
-    def show_title(x,y):
-        title = font.render("Shooter Infinite", True, (255,255,255))
-        screen.blit(title, (x,y))
-
-    screen.blit(fondo, (0,0))
-    show_title(textX,textY)
-
-    def draw_text(text, font, color, surface, x, y):
-        textobj = font.render(text, (255,255,255), color)
-        textrect = textobj.get_rect()
-        textrect.topleft = (x, y)
-        surface.blit(textobj, textrect)
-
-    #Seleccionar los botones de inicio y salida utilizando la posición y click del mouse
-    mx, my = pygame.mouse.get_pos()
- 
-    button_1 = pygame.Rect(50, 300, 200, 50)
-    draw_text('Inicio', font, (255, 255, 255), screen, 500, 107)
-
-    button_2 = pygame.Rect(50, 400, 200, 50)
-    draw_text('Salir', font, (255, 255, 255), screen, 505, 203)
-
-    if button_1.collidepoint((mx, my)):
-        #resaltado de boton
-        resaltado = pygame.Rect(50, 305, 280, 40)
-        pygame.draw.rect(screen, (200, 200, 200), resaltado)
-        if click:
-            gameLoop()
-    if button_2.collidepoint((mx, my)):
-        #resaltado de boton
-        resaltado = pygame.Rect(50, 305, 280, 40)
-        pygame.draw.rect(screen, (200, 200, 200), resaltado)
-        if click:
-            exit()
-
-    pygame.draw.rect(screen, (255, 0, 0), button_1)
-    pygame.draw.rect(screen, (255, 0, 0), button_2)
- 
-    click = False
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
+        if button_1.collidepoint((mx, my)):
+            #resaltado de boton
+            resaltado = pygame.Rect(250, 250, 200, 40)
+            pygame.draw.rect(screen, (200, 200, 200), resaltado)
+            if click:
+                gameLoop()
+        if button_2.collidepoint((mx, my)):
+            #resaltado de boton
+            resaltado = pygame.Rect(50, 305, 200, 40)
+            pygame.draw.rect(screen, (200, 200, 200), resaltado)
+            if click:
+                exit()
+    
+        click = False
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                click = True
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
 
-    pygame.display.update()
-    clock.tick(60)
-
-def exit():
-    pygame.quit()
-    sys.exit()
+        pygame.display.update()
+        clock.tick(60)
 
 def updateFPS():
     fps = str(int(clock.get_fps()))
@@ -314,6 +309,6 @@ def gameLoop():
         clock.tick(60)
 
         pygame.display.flip()
-
+        
 menu() 
 pygame.quit() 
