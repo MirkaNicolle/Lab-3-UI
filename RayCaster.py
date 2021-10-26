@@ -315,4 +315,5 @@ def gameLoop():
 
         pygame.display.flip()
 
-menu()    
+menu() 
+pygame.quit() 
