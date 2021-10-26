@@ -197,27 +197,43 @@ def menu():
         title = font.render("Shooter Infinite", True, (255,255,255))
         screen.blit(title, (x,y))
 
-    screen.fill(pygame.Color("black"), (0,0,30,30) )
     screen.blit(fondo, (0,0))
     show_title(textX,textY)
+
+    def draw_text(text, font, color, surface, x, y):
+        textobj = font.render(text, (255,255,255), color)
+        textrect = textobj.get_rect()
+        textrect.topleft = (x, y)
+        surface.blit(textobj, textrect)
 
     #Seleccionar los botones de inicio y salida utilizando la posición y click del mouse
     mx, my = pygame.mouse.get_pos()
  
-    button_1 = pygame.Rect(50, 100, 200, 50)
-    button_2 = pygame.Rect(50, 200, 200, 50)
+    button_1 = pygame.Rect(50, 300, 200, 50)
+    draw_text('Inicio', font, (255, 255, 255), screen, 500, 107)
+
+    button_2 = pygame.Rect(50, 400, 200, 50)
+    draw_text('Salir', font, (255, 255, 255), screen, 505, 203)
+
     if button_1.collidepoint((mx, my)):
+        #resaltado de boton
+        resaltado = pygame.Rect(50, 305, 280, 40)
+        pygame.draw.rect(screen, (200, 200, 200), resaltado)
         if click:
             gameLoop()
     if button_2.collidepoint((mx, my)):
+        #resaltado de boton
+        resaltado = pygame.Rect(50, 305, 280, 40)
+        pygame.draw.rect(screen, (200, 200, 200), resaltado)
         if click:
             exit()
+
     pygame.draw.rect(screen, (255, 0, 0), button_1)
     pygame.draw.rect(screen, (255, 0, 0), button_2)
  
     click = False
     for event in pygame.event.get():
-        if event.type == QUIT:
+        if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
@@ -297,8 +313,6 @@ def gameLoop():
         screen.blit(updateFPS(), (0,0))
         clock.tick(60)
 
-
         pygame.display.flip()
 
 menu()    
-pygame.quit()
