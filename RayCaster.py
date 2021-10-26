@@ -176,13 +176,13 @@ rCaster.load_map("map.txt")
 clock = pygame.time.Clock()
 font = pygame.font.Font('freesansbold.ttf', 30)
 
+click = False
 
 def menu():
 
     while True:
 
-        click = False
-
+        
         #fondo
         fondo = pygame.image.load('espacio.jpg')
 
@@ -229,18 +229,30 @@ def menu():
             pygame.draw.rect(screen, (255, 127, 0), resaltado)
             if click:
                 exit()
-    
+
+        #funcionamito escencial
         click = False
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
+            if ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
+            if ev.type == pygame.MOUSEBUTTONDOWN:
+                if ev.button == 1:
+                    click = True
+            if ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_UP:
+                    mx = 500
+                    my = 170
+            if ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_DOWN:
+                    mx = 500
+                    my = 320
+            if ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_SPACE:
                     click = True
 
         pygame.display.update()
