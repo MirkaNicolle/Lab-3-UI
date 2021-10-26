@@ -176,12 +176,11 @@ rCaster.load_map("map.txt")
 clock = pygame.time.Clock()
 font = pygame.font.Font('freesansbold.ttf', 30)
 
-def updateFPS():
-    fps = str(int(clock.get_fps()))
-    fps = font.render(fps, 1, pygame.Color("white"))
-    return fps
 
 def menu():
+    
+    click = False
+
     #fondo
     fondo = pygame.image.load('espacio.jpg')
 
@@ -194,13 +193,52 @@ def menu():
     textX = 170
     textY = 35
 
+    def show_title(x,y):
+        title = font.render("Shooter Infinite", True, (255,255,255))
+        screen.blit(title, (x,y))
+
     screen.fill(pygame.Color("black"), (0,0,30,30) )
     screen.blit(fondo, (0,0))
     show_title(textX,textY)
 
-def show_title(x,y):
-    title = font.render("Shooter Infinite", True, (255,255,255))
-    screen.blit(title, (x,y))
+    #Seleccionar los botones de inicio y salida utilizando la posición y click del mouse
+    mx, my = pygame.mouse.get_pos()
+ 
+    button_1 = pygame.Rect(50, 100, 200, 50)
+    button_2 = pygame.Rect(50, 200, 200, 50)
+    if button_1.collidepoint((mx, my)):
+        if click:
+            gameLoop()
+    if button_2.collidepoint((mx, my)):
+        if click:
+            exit()
+    pygame.draw.rect(screen, (255, 0, 0), button_1)
+    pygame.draw.rect(screen, (255, 0, 0), button_2)
+ 
+    click = False
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                click = True
+
+    pygame.display.update()
+    clock.tick(60)
+
+def exit():
+    pygame.quit()
+    sys.exit()
+
+def updateFPS():
+    fps = str(int(clock.get_fps()))
+    fps = font.render(fps, 1, pygame.Color("white"))
+    return fps
 
 def gameLoop():
 
@@ -256,12 +294,11 @@ def gameLoop():
         rCaster.render()
 
         #FPS
-        screen.fill(pygame.Color("black"), (0,0,30,30) )
         screen.blit(updateFPS(), (0,0))
         clock.tick(60)
 
 
         pygame.display.flip()
 
-    pygame.quit()
-    
+menu()    
+pygame.quit()
