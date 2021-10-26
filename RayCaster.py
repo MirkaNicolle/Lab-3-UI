@@ -211,22 +211,22 @@ def menu():
         #Seleccionar los botones de inicio y salida utilizando la posición y click del mouse
         mx, my = pygame.mouse.get_pos()
     
-        button_1 = pygame.Rect(50, 300, 200, 50)
+        button_1 = pygame.Rect(240, 200, 200, 50)
         draw_text('Inicio', font, (255, 255, 255), screen, 250, 200)
 
-        button_2 = pygame.Rect(50, 400, 200, 50)
+        button_2 = pygame.Rect(240, 250, 200, 50)
         draw_text('Salir', font, (255, 255, 255), screen, 250, 250)
 
         if button_1.collidepoint((mx, my)):
             #resaltado de boton
-            resaltado = pygame.Rect(250, 250, 200, 40)
-            pygame.draw.rect(screen, (200, 200, 200), resaltado)
+            resaltado = pygame.Rect(240, 200, 100, 40)
+            pygame.draw.rect(screen, (255, 127, 0), resaltado)
             if click:
                 gameLoop()
         if button_2.collidepoint((mx, my)):
             #resaltado de boton
-            resaltado = pygame.Rect(50, 305, 200, 40)
-            pygame.draw.rect(screen, (200, 200, 200), resaltado)
+            resaltado = pygame.Rect(240, 250, 100, 40)
+            pygame.draw.rect(screen, (255, 127, 0), resaltado)
             if click:
                 exit()
     
